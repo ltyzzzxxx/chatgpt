@@ -3,5 +3,29 @@
 }
 
 .ant-input::placeholder {
-  color: #97a3b6;
+  color: #59606b;
+}
+
+.scrollbar {
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #999;
+  -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.5);
+}
+
+.scrollbar::-webkit-scrollbar-thumb:window-inactive {
+  background: #999;
 }
