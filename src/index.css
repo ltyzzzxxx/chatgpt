@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply flex justify-center items-center h-[100vh] bg-[#212328]
+}
+
+/* #root {
+  @apply w-[80vw] h-[80vh] bg-black;
+} */

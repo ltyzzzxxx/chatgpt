@@ -1,0 +1,7 @@
+.ant-input {
+  @apply text-[#97a3b6];
+}
+
+.ant-input::placeholder {
+  color: #97a3b6;
+}
