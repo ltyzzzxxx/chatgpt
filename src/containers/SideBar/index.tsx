@@ -1,9 +1,31 @@
+import { FC } from "react";
 import { Input } from "antd";
 import { SearchOutlined, PlusOutlined, GithubFilled } from "@ant-design/icons";
 import ChatInfoCard from "../../components/ChatInfoCard";
+import { conversationStore } from "@/store";
+import { useSnapshot } from "valtio";
 import "./index.css";
 
-const SideBar = () => {
+interface SideBarProps {
+  selectedConversationId: string;
+  setSelectedConversationId: (id: string) => void;
+}
+
+const SideBar: FC<SideBarProps> = ({
+  selectedConversationId,
+  setSelectedConversationId,
+}) => {
+  const { conversations } = useSnapshot(conversationStore);
+
+  const handleAddConversation = () => {
+    conversationStore.addConversation();
+    setSelectedConversationId(conversationStore.conversations[0].id);
+  };
+
+  const handleSelected = (id: string) => {
+    setSelectedConversationId(id)
+  }
+
   return (
     <>
       <div className="w-1/3 max-w-[400px] h-full flex flex-col bg-[#17171a] rounded-l-md text-[#97a3b6]">
@@ -15,7 +37,7 @@ const SideBar = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <GithubFilled className="text-xl ml-3"/>
+            <GithubFilled className="text-xl ml-3" />
           </a>
         </div>
         <div className="p-2 flex items-center justify-between mb-2 h-auto">
@@ -28,21 +50,22 @@ const SideBar = () => {
               placeholder="搜索聊天内容"
             />
           </div>
-          <PlusOutlined className="p-2 ml-1 text-xl cursor-pointer" />
+          <PlusOutlined
+            onClick={handleAddConversation}
+            className="p-2 ml-1 text-xl cursor-pointer"
+          />
         </div>
         <div className="scrollbar p-2 h-[75%] flex flex-col items-center">
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
-          <ChatInfoCard></ChatInfoCard>
+          {conversations.map((item, index) => (
+            <ChatInfoCard
+              key={index}
+              id={item.id}
+              title={item.title}
+              dateTime={item.dateTime}
+              selected={item.id === selectedConversationId}
+              handleSelected={handleSelected}
+            ></ChatInfoCard>
+          ))}
         </div>
       </div>
     </>
